@@ -54,7 +54,7 @@ class PengembalianController extends Controller
                     $karanganbunga->save();
                     DB::commit();
                     Alert::success('Berhasil', 'Berhasil Mengembalikan Karangan Bunga');
-                    return redirect('/guruternak/inbox');
+                    return redirect('/admin/inbox');
                 }
 
             } catch (\Throwable $th) {
@@ -64,7 +64,7 @@ class PengembalianController extends Controller
         // }
         // else {
         //     Alert::warning('Gagal', 'Karangan bunga yang disewa salah atau tidak ada');
-        //     return redirect('/guruternak/pengembalian');
+        //     return redirect('/admin/pengembalian');
         // }
 
     }

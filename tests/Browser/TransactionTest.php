@@ -24,7 +24,7 @@ class TransactionTest extends DuskTestCase
                     ->assertSee('Login')
                     ->press('Login')
                     ->clickLink('Courses')
-                    ->assertPathIs('/course')
+                    ->assertPathIs('/karanganbunga')
                     ->clickLink('Beli Kelas')
                     ->assertPathIs('/checkout/2');
             
@@ -50,7 +50,7 @@ class TransactionTest extends DuskTestCase
                     ->press('Logout')
                     ->assertPathIs('/')
                     ->clickLink('Login sebagai  Guru Ternak')
-                    ->assertPathIs('/guruternak/login')
+                    ->assertPathIs('/admin/login')
                     ->type('username', 'darto123')
                     ->type('password', '123123123')
                     ->assertSee('Login')

@@ -14,16 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function index(){
-        // $order = Penyewaan::where('guruTernak_id', auth()->user()->id)->get();
-        // $user = User::all();
-        // return view('admin/guru-myinbox-polosan', [
-        //     'title' => 'My Inbox Order',
-        //     // 'order'=> $order,
-        //     'user'=> $user
-        // ]);
-
         $iduser = Auth::id();
-        // $profile = Profile::where('users_id',$iduser)->first();
         $penyewaan = Penyewaan::with(['user','karangan_bunga'])->orderBy('updated_at','desc')->get();
         $penyewaanUser = Penyewaan::where('users_id',$iduser)->get();
         $user = User::all();
@@ -55,31 +46,49 @@ class AdminController extends Controller
     }
 
     public function editkaranganbunga($id){
-        $karanganBunga = KaranganBunga::findOrFail($id);
+        $karanganbunga = KaranganBunga::findOrFail($id);
         $kategori = Kategori::all();
         return view('admin/karanganbunga-edit', [
-            'karanganBunga' => $karanganBunga,
+            'karanganbunga' => $karanganbunga,
             'kategori' => $kategori,
             'title' => 'Edit Karangan Bunga'
         ]);
     }
 
     public function updatekaranganbunga(Request $request, $id){
-        $request->validate([
-            'name' => 'required',
-            'category' => 'required|exists:kategoris,id',
-            // Add validation rules for other fields if needed
-        ]);
-        $karanganBunga = KaranganBunga::findOrFail($id);
-        $karanganBunga->update([
-            'name' => $request->name,
-            'kategori_id' => $request->category,
-            // Update other fields as needed
-        ]);
+        $karanganbunga = KaranganBunga::find($id);
+        // $kategori= Kategori::find($id);
+        $request->validate(
+            [
+                'nama_karanganbunga' => 'nullable',
+                'kode_karanganbunga' => 'nullable',
+                'deskripsi' => 'nullable',
+                'pengirim' => 'nullable',
+                'gambar' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            ]
+        );
+
+        if ($request->file('gambar')) {
+            $gambar = explode('.', $request->file('gambar')->getClientOriginalName())[0];
+            $gambar = $gambar . '-' . time() . '.' . $request->file('gambar')->extension();
+            $request->gambar->move(public_path('asset/gambar'), $gambar);
+            $karanganbunga->gambar = $gambar;
+        }
+        $karanganbunga->nama_karanganbunga = $request->nama_karanganbunga;
+        $karanganbunga->kode_karanganbunga = $request->kode_karanganbunga;
+        $karanganbunga->deskripsi = $request->deskripsi;
+        $karanganbunga->pengirim = $request->pengirim;
+        $karanganbunga->kategori_karanganbunga()->sync($request->kategori);
+        $karanganbunga->save();
+
         return redirect("/floralrent/karanganbunga")->with('success', 'Karangan Bunga updated successfully');
     }
 
+    public function deletekaranganbunga(KaranganBunga $id){
+        KaranganBunga::where('id', $id->id)->delete();
 
+        return redirect("/floralrent/karanganbunga")->with('success', 'Karangan Bunga deleted successfully');
+    }
 
     public function setting(){
         return view('admin/setting-guru', [
@@ -88,12 +97,6 @@ class AdminController extends Controller
     }
 
 
-    // login guru
-    public function loginGuru(){
-        return view('admin/login-guru', [
-            'title' => 'Login Guru Ternak'
-        ]);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -103,40 +106,31 @@ class AdminController extends Controller
      * @param  \App\Models\Guru  $user
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, User $user)
-    // {
-    //     if($request->password==null){
-    //         User::where('id', $user->id)->update(
-    //             [   
-    //                 'username'=>$request->username,
-    //             ]
-    //             );
-    //         Gurutani::where('id', $user->id)->update(
-    //             [   
-    //                 'username'=>$request->username,
-    //             ]
-    //             );
-    //     $request->session()->flash('success', 'data berhasil diubah gan');
+    public function update(Request $request, User $user)
+    {
+        if ($request->password == null) {
+            User::where('id', $user->id)->update(
+                [
+                    'name' => $request->name,
+                    'no_telp' => $request->no_telp,
+                ]
+            );
+            $request->session()->flash('success', 'data berhasil diubah gan');
+        } else {
+            $validated = $request->validate([
+                'password' => 'required|min:5'
+            ]);
 
-    //     } else {
-    //         User::where('id', $user->id)->update(
-    //             [   
-    //                 'username'=>$request->username,
-    //                 'password'=>$request->password
-    //             ]
-    //             );
-    //         Gurutani::where('id', $user->id)->update(
-    //             [   
-    //                 'username'=>$request->username,
-    //                 'password'=>$request->password
-    //             ]
-    //             );
-    //     $request->session()->flash('success', 'data berhasil diubah gan');
-            
-    //     }
+            User::where('id', $user->id)->update([
+                'name' => $request->name,
+                'no_telp' => $request->no_telp,
+                'password' => Hash::make($validated['password'])
+            ]);
+            $request->session()->flash('success', 'data berhasil diubah gan');
+        }
 
-    //     return redirect("/gurutani/setting");
-    // }
+        return redirect("/admin/setting");
+    }
 
     /**
      * Update the specified resource in storage.
@@ -152,7 +146,7 @@ class AdminController extends Controller
             'status' => $request->status
         ]);
         $request->session()->flash('success', 'data berhasil diubah gan');
-        return redirect("/guruternak/inbox");
+        return redirect("/admin/inbox");
     }
 
     // public function update_status2(Request $request, Order $order){

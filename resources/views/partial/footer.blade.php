@@ -32,7 +32,7 @@
             <div class="links">
                 <a href="/"><img src="asset/arrow-circle-right.png" alt="">Home</a>
                         
-                <a href="/course"><img src="asset/arrow-circle-right.png" alt="">Courses</a>
+                <a href="/karanganbunga"><img src="asset/arrow-circle-right.png" alt="">Courses</a>
                     
                 <a href="/event"><img src="asset/arrow-circle-right.png" alt="">Event</a>
                     

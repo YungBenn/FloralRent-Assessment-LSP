@@ -6,7 +6,7 @@
     <div class="app">
         @include('partial.navbar')
         <div class="dashboard addclass">
-            @include('partial.sidebar-guru')
+            @include('partial.sidebar-admin')
             <div class="addclass-box dashboard-box">
                 <h1 style="text-decoration: underline;text-decoration-color: #C5D22E;" >Tambah Karangan Bunga</h1>
                 <div class="tagBungkus d-flex align-items-center">
