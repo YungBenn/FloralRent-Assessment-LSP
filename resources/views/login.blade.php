@@ -43,7 +43,6 @@
 <!-- ini bagian login untuk pelajar -->
 <body>
 <section id="loginn">
-    <a href="/"><img src="../asset/Logo.png" alt="Dunia Tani" class="register-login__logo"></a>
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-md-5 min-vh-100 d-flex align-items-center bagianKiri">
@@ -69,14 +68,6 @@
                     </form>
                     <p style="color: #9F9F9F; margin-top: 10px;" class="sign_up">Anda belum memiliki akun ?<span
                                 style="color: #7aa60b;"><a href="/register"> Daftar</a></span></p>
-                </div>
-            </div>
-            <div class="col-md-7 min-vh-100 right">
-                <div class="text-login">
-                    <h1 style="font-size: 34px; font-weight: 700;" class="text-login_1">Ingin mengetahui tentang<br />peternakan & membeli hasil<br />ternak ?</h1>
-                    <h2 style="font-size: 20px; font-weight: 400">Nikmati kemudahan untuk mempelajari<br />peternakan dan
-                        membeli hasil ternak yang<br />berkualitas.
-                    </h2>
                 </div>
             </div>
         </div>
