@@ -34,6 +34,4 @@ Ruben: Anggota, Penyewaan
 
 # ERD FloralRent :
 
-<img src="">
 
-</ul>
