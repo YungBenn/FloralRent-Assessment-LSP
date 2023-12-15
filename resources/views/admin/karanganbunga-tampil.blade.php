@@ -37,7 +37,7 @@
                                 <td>{{ $item->pengirim }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger">Delete</button>
+                                    <button type="button" class="btn btn-danger"><a href="hapuskaranganbunga">Delete</button>
                                     <button type="button" class="btn btn-warning"><a href="editkaranganbunga">Edit</button>
                                 </td>
                             </tr>
