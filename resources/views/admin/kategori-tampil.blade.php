@@ -9,40 +9,31 @@
             @include('partial.sidebar-admin')
 
             <div class="order-box dashboard-box">
-                <h1 style="text-decoration: underline;text-decoration-color: #C5D22E; ">Daftar Karangan Bunga</h1>
+                <h1 style="text-decoration: underline;text-decoration-color: #C5D22E; ">Daftar Kategori</h1>
                 <div class="tagBungkus d-flex align-items-center">
-                    <a href="/floralrent/tambahkaranganbunga" class="btn btn-info mb-3">Tambah Karangan Bunga</a>
+                    <a href="/admin/addkategori" class="btn btn-info mb-3">Tambah Kategori</a>
                 </div>
                 <div class="tableOrder">
                     <table class="order-table mx-auto">
                         <thead>
                             <tr>
                                 <td>No</td>
-                                <td>Kode Karangan Bunga</td>
-                                <td>Nama Karangan Bunga</td>
-                                <td>Deskripsi</td>
-                                <td>Pengirim</td>
-                                <td>Status</td>
+                                <td>Nama</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($karanganbunga as $item)
+                            @foreach ($kategori as $item)
                             <tr>
                                 <td scope="row">{{ $loop->iteration }}</td>
-                                {{-- <td><img src="../asset/thumbnails/{{$item->gambar}}" class="order-cover" alt=""></td> --}}
-                                <td>{{ $item->kode_karanganbunga }}</td>
-                                <td>{{ $item->nama_karanganbunga }}</td>
-                                <td>{{ $item->deskripsi }}</td>
-                                <td>{{ $item->pengirim }}</td>
-                                <td>{{ $item->status }}</td>
+                                <td>{{ $item->nama }}</td>
                                 <td>
-                                    <form action="/floralrent/delete/{{$item->id}}" method="post">
+                                    <form action="/admin/deletekategori/{{$item->id}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
-                                    <button type="button" class="btn btn-warning"><a href="/floralrent/editkaranganbunga/{{$item->id}}">Edit</button>
+                                    <button type="button" class="btn btn-warning"><a href="/admin/kategori/{{$item->id}}">Edit</button>
                                 </td>
                             </tr>
                             @endforeach

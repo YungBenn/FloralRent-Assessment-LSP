@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="course__cardButton">
                                         <a href="{{ isset($courseother) ? '/checkout/'.$courseother->id : '' }}" id="{{isset($courseother) ? '' : 'hide'}}" class="course__card-cta cta me-2"><b>Beli Kelas</b></a>
-                                        <a href="{{ isset($courseother) ? '/course/'.$courseother->id : '' }}" id="{{isset($courseother) ? '' : 'hide'}}" class="course__card-cta  course__card-cta-secondary cta">Detail Class</a>
+                                        <a href="{{ isset($courseother) ? '/karanganbunga/'.$courseother->id : '' }}" id="{{isset($courseother) ? '' : 'hide'}}" class="course__card-cta  course__card-cta-secondary cta">Detail Class</a>
                                     </div>
                                 </div>
                             </div>

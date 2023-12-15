@@ -29,14 +29,14 @@
                             placeholder="Enter your name">
                     </div>
                     <div class="setting-input-grup dashboard-input-grup">
-                        <label for="username">Username (Max. 50 characters)</label>
-                        <input type="text" name="username" id="username" value="{{auth()->user()->username}}"
-                            placeholder="Enter your username">
-                    </div>
-                    <div class="setting-input-grup dashboard-input-grup">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" value="{{auth()->user()->email}}"
                             placeholder="Enter your email" disabled>
+                    </div>
+                    <div class="setting-input-grup dashboard-input-grup">
+                        <label for="no_telp">No Telp</label>
+                        <input type="text" name="no_telp" id="no_telp" value="{{auth()->user()->no_telp}}"
+                            placeholder="Enter your name">
                     </div>
                     <div class="setting-input-grup dashboard-input-grup">
                         <label for="pass">New Password (at least 6 characters)</label>

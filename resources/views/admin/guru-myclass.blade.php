@@ -6,7 +6,7 @@
     <div class="app">
         @include('partial.navbar')
         <div class="dashboard order">
-            @include('partial.sidebar-guru')
+            @include('partial.sidebar-admin')
 
             <div class="class-box dashboard-box">
                 <h1 style="text-decoration: underline;text-decoration-color: #C5D22E;">Kelas yang tersedia</h1>
@@ -30,8 +30,8 @@
                                 <span class="course__harga-coret">{{$ord->price*120/100}}</span>
                                 <h2 class="course__harga-asli">Rp{{$ord->price}}</h2>
                             </div>
-                            <a href="/guruternak/editclass/{{ $ord->id }}" class="course__card-cta cta">Edit</a>
-                            <form action="/guruternak/myclass/{{ $ord->id }}" method="post">
+                            <a href="/admin/editclass/{{ $ord->id }}" class="course__card-cta cta">Edit</a>
+                            <form action="/admin/myclass/{{ $ord->id }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button class="course__card-cta dahsboard__guru-delete cta" type="button"

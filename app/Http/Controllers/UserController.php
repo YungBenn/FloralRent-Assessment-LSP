@@ -61,42 +61,24 @@ class UserController extends Controller
         if ($request->password == null) {
             User::where('id', $user->id)->update(
                 [
-                    'username' => $request->username,
-                    'name' => $request->name
+                    'name' => $request->name,
+                    'no_telp' => $request->no_telp,
                 ]
             );
             $request->session()->flash('success', 'data berhasil diubah gan');
         } else {
             $validated = $request->validate([
-                'password' => 'required|min:6' // Add any validation rules for the password here
+                'password' => 'required|min:5'
             ]);
 
             User::where('id', $user->id)->update([
                 'name' => $request->name,
-                'username' => $request->username,
+                'no_telp' => $request->no_telp,
                 'password' => Hash::make($validated['password'])
             ]);
             $request->session()->flash('success', 'data berhasil diubah gan');
         }
 
         return redirect("/user/setting");
-    }
-
-    public function accessVideoTesting(string $id)
-    {
-        $course = Course::where('id', $id)->firstOrFail();
-        $courseother = Order::where('course_id', '!=', $id)->where('status', '=', 'Verified')->first();
-        if ($courseother) {
-            return view('user/user-video', [
-                'title' => 'Course '.$course->title,
-                'course' => $course,
-                'courseother' => $courseother
-            ]);
-        } else {
-            return view('user/user-video', [
-                'title' =>'Course '. $course->title,
-                'course' => $course
-            ]);
-        }
     }
 }

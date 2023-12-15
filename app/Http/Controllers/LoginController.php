@@ -26,7 +26,7 @@ class LoginController extends Controller
             if($user->role === 'user'){
                 return redirect()->intended('/');
             } else {
-                return redirect()->intended('/guruternak/inbox');
+                return redirect()->intended('/admin/inbox');
             }   
         }
 

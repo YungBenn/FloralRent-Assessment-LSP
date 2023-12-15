@@ -6,7 +6,7 @@
     <div class="app">
         @include('partial.navbar')
         <div class="dashboard order">
-            @include('partial.sidebar-guru')
+            @include('partial.sidebar-admin')
 
             <div class="order-box dashboard-box">
                 <h1 style="text-decoration: underline;text-decoration-color: #C5D22E; ">Rincian Order</h1>
@@ -46,6 +46,11 @@
                 <div class="class-subtle dashboard-subtle">
                     Order Status
                 </div>
+                <a href="/cetak-laporan">
+                    <div class="cetak-laporan">
+                        Cetak Laporan
+                    </div>
+                </a>
                 <div class="tableOrder">
                     <table class="order-table mx-auto">
                         <thead>

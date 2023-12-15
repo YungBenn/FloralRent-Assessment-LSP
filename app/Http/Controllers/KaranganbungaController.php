@@ -9,7 +9,7 @@ use App\Models\Guru;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class CourseController extends Controller
+class KaranganbungaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,16 +25,16 @@ class CourseController extends Controller
         ]);
     }
 
-    public function searchCourse()
+    public function searchKaranganBunga()
     {
-        $course = Course::latest();
+        $karanganbunga = KaranganBunga::latest();
         if(request('search')) {
-            $course->where('title', 'like', '%' . request('search') . '%');
+            $karanganbunga->where('nama_karanganbunga', 'like', '%' . request('search') . '%');
         }
 
         return view('course', [
-            'title' => 'Course',
-            'course' => $course->get()
+            'title' => 'KaranganBunga',
+            'karanganbunga' => $karanganbunga->get()
         ]);
     }
 
@@ -60,16 +60,8 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        // video
-        // $video = explode('.', $request->file('video')->getClientOriginalName())[0];
-        // $video = $video . '-' . time() . '.' . $request->file('video')->extension();
-        // $request->file('video')->storeAs('public/videos/', $video);
-        // $image_path = $request->file('image')->store('image', 'public');
-        // $thumbnail = time().'.'.$request->image->extension();
-        // $thumbnail_path = $request->file('thumbnail')->store('thumbnail', 'public');
         $gambar = explode('.', $request->file('gambar')->getClientOriginalName())[0];
         $gambar = $gambar . '-' . time() . '.' . $request->file('gambar')->extension();
-        // $request->file('thumbnail')->storeAs('public/thumbnails/products/', $thumbnail);
         $request->gambar->move(public_path('asset/gambar'), $gambar);
 
         $karanganbunga = KaranganBunga::create([
@@ -81,7 +73,7 @@ class CourseController extends Controller
         ]);
         $karanganbunga->kategori_karanganbunga()->sync($request->kategori);
      
-        return redirect('/guruternak/inbox');
+        return redirect('/floralrent/karanganbunga');
     }
 
     /**
@@ -169,7 +161,7 @@ class CourseController extends Controller
                 ]);
             }
         }
-        return redirect('/guruternak/myclass');
+        return redirect('/admin/myclass');
     }
 
     /**
@@ -182,134 +174,6 @@ class CourseController extends Controller
     {
         Course::where('id', $id->id)->delete();
 
-        return redirect('/guruternak/myclass');
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function displayCourseCheckout(Course $course)
-    {
-        return view('course-checkout', [
-            'title' => 'Course Checkout',
-            'course' => $course
-        ]);
-    }
-    // public function displayCourseCheckout(){
-    //     return view('course-checkout', [
-    //         'title' => 'Course Checkout',
-    //         'course' => "test"
-    //     ]);
-    // }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function displayCoursePayment(Course $course)
-    {
-        return view('course-payment', [
-            'title' => 'Course Payment',
-            'course' => $course
-        ]);
-    }
-    // public function displayCoursePayment(){
-    //     return view('course-payment', [
-    //         'title' => 'Course Payment',
-    //         'course' => "test"
-    //     ]);
-    // }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function Pembayaran(Request $request)
-    {
-        // evidence
-        $evidence = explode('.', $request->file('evidence')->getClientOriginalName())[0];
-        $evidence = $evidence . '-' . time() . '.' . $request->file('evidence')->extension();
-        $request->evidence->move(public_path('asset/evidences'), $evidence);
-
-        // ktp
-        // $ktp = explode('.', $request->file('ktp')->getClientOriginalName())[0];
-        // $ktp = $ktp . '-' . time() . '.' . $request->file('ktp')->extension();
-        // $request->file('ktp')->storeAs('public/ktps/products/', $ktp);
-        if($request->username != null && $request->evidence != null) {
-            Order::create([
-                'user_id'=> auth()->user()->id,
-                'course_id'=> $request->course_id,
-                'guruTernak_id' => $request->guruTernak_id,
-                'username'=> $request->username,
-                'cover'=> $request->cover,
-                'title'=> $request->title,
-                'status'=> $request->status,
-                'type'=> $request->type,
-                'price'=> $request->price,
-                'evidence' => $evidence
-            ]);
-        }
-        return redirect('/sukses');
-
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-
-    public function displayCourseSuccess()
-    {
-        return view('course-success', [
-            'title' => 'Course Checkout Successful'
-        ]);
-    }
-
-    public function displayclass()
-    {
-        $course = Course::where('guruTernak_id', auth()->user()->id)->get();
-        return view('guru/guru-myclass', [
-            'title' => 'Course',
-            'course' => $course
-        ]);
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    // public function editclass()
-    // {
-    //     $course = Course::where('guruTernak_id', auth()->user()->id)->first();
-    //     return view('guru/guru-editclass', [
-    //         'title' => 'Edit a Class',
-    //         'course' => $course
-    //     ]);
-    // }
-
-    public function editclass(string $id)
-    {
-        // $course = Course::where('guruTernak_id', auth()->user()->id)->first();
-        $course = Course::where('id', $id)->firstOrFail();
-        return view('guru/guru-editclass', [
-            'title' => 'Edit a Class',
-            'course' => $course
-        ]);
-    }
-
-    public function accessvideo()
-    {
-        $order = Order::where('user_id', auth()->user()->id)->first();
-        return view('course-access', [
-            'title' => 'Pentingnya Penggunaan Teknologi PerTernakan',
-            'order' => $order
-        ]);
+        return redirect('/admin/myclass');
     }
 }

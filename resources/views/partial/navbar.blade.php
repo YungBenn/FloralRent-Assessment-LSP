@@ -1,10 +1,8 @@
 <nav class="nav">
-    <h1>FloralRent</h1>
+    <h2>FloralRent</h2>
     <div class="nav__box">
         <a href="/" class="nav__link">Home</a>
-        <a href="/event" class="nav__link">Events</a>
-        <a href="/comunity" class="nav__link">Community</a>
-        <a href="/course" class="nav__link">Courses</a>
+        <a href="/karanganbunga" class="nav__link">Karangan Bunga</a>
 
         @auth
         <img src="../../asset/fotoAkun.png" alt="foto akun" style="margin-right: -20px;">
@@ -16,10 +14,10 @@
                 {{ auth()->user()->name }}
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/guruternak/inbox">My Inbox</a></li>
-                <li><a class="dropdown-item" href="/guruternak/addclass">Add Class</a></li>
-                <li><a class="dropdown-item" href="/guruternak/addclass">My Course</a></li>
-                <li><a class="dropdown-item" href="/guruternak/setting">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="/admin/inbox">My Inbox</a></li>
+                <li><a class="dropdown-item" href="/admin/addclass">Add Class</a></li>
+                <li><a class="dropdown-item" href="/admin/addclass">My Course</a></li>
+                <li><a class="dropdown-item" href="/admin/setting">Edit Profile</a></li>
                 <li>
                     <form action="/logout" method="post">
                         @csrf
@@ -39,8 +37,7 @@
                 {{ auth()->user()->name }}
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/user/order">My Order</a></li>
-                <li><a class="dropdown-item" href="/user/class">My Course</a></li>
+                <li><a class="dropdown-item" href="/user/rent">My Rent</a></li>
                 <li><a class="dropdown-item" href="/user/setting">Edit Profile</a></li>
                 <li>
                     <form action="/logout" method="post">
@@ -55,7 +52,6 @@
         </div>
         @endif
         @else
-        <a href="/guruternak/login" class="nav__link nav-redirect">Login sebagai  Guru Ternak</a>
         <a href="/login" class="nav__link nav-btn" id="loginBTN">Login</a>
         @endauth
 

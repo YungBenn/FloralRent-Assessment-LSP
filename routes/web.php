@@ -1,25 +1,17 @@
 <?php
 
-use App\Http\Controllers\KonfirController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\KaranganbungaController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\RegistController;
-use App\Http\Controllers\ComunityController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\CoController;
-use App\Http\Controllers\BarcodeController;
-use App\Http\Controllers\SuksesController;
-
-
-
+use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,82 +24,69 @@ use App\Http\Controllers\SuksesController;
 |
 */
 
-
-
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::post('/logout', [LoginController::class, 'logout']);
 
-
 Route::get('/register', [RegistController::class, 'index']);
 Route::post('/register', [RegistController::class, 'store']);
 
-// Route::resource('/course', CourseController::class);
-Route::get('/course', [CourseController::class, 'index']);
-Route::get('/courses', [CourseController::class, 'searchCourse']);
-Route::get('/course/{id}', [CourseController::class, 'show']);
-// Route::get('/checkout', [CheckoutController::class, 'checkout1']);
-// Route::get('/checkout2', [CoController::class, 'checkout2']);
-// Route::get('/konfirmasi', [KonfirController::class, 'konfirmasi']);
-Route::get('/sukses', [SuksesController::class, 'suksess']);
-Route::get('/barcode', [BarcodeController::class, 'barco']);
-
-
-// Route::get('/checkout', [CheckoutController::class, 'checkout1']);
-Route::get('/checkout/{id}', [CoController::class, 'checkout']);
-Route::get('/konfirmasi/{id}', [KonfirController::class, 'konfirmasi'])->name('konfirmasi');
-Route::post('/konfirmasi/{id}', [CourseController::class, 'Pembayaran'])->name('pembayaran');
+Route::get('/karanganbunga', [KaranganbungaController::class, 'index']);
+Route::get('/karanganbunga', [KaranganbungaController::class, 'searchKaranganBunga']);
+Route::get('/karanganbunga/{id}', [KaranganbungaController::class, 'show']);
 
 Route::get('/', [HomeController::class, 'index']);
-
-Route::get('/event', [EventController::class, 'displayEvent']);
-Route::get('/event-detail/{id}', [EventController::class, 'eventDetail']);
-Route::get('/comunity', [ComunityController::class, 'comun']);
 
 Route::get('/floralrent/login', [AdminController::class, 'loginGuru']);
 Route::post('/floralrent/login', [LoginController::class, 'authenticate']);
 
 Route::get('/floralrent/karanganbunga', [AdminController::class, 'displaykaranganbunga']);
 Route::get('/floralrent/tambahkaranganbunga', [AdminController::class, 'tambahkaranganbunga']);
-Route::post('/floralrent/tambahkaranganbunga', [CourseController::class, 'store'])->name('course.store');
+Route::post('/floralrent/tambahkaranganbunga', [KaranganbungaController::class, 'store'])->name('karanganbunga.store');
 Route::get('/floralrent/editkaranganbunga/{id}', [AdminController::class, 'editkaranganbunga']);
 Route::put('/floralrent/update-karanganbunga/{id}', [AdminController::class, 'updatekaranganbunga'])->name('admin.updatekaranganbunga');
+Route::delete('/floralrent/delete/{id}', [AdminController::class, 'deletekaranganbunga']);
 
+Route::get('/admin/kategori', [KategoriController::class, 'index']);
+Route::get('/admin/kategori/{id}', [KategoriController::class, 'edit']);
+Route::put('/admin/updatekategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+Route::delete('/admin/deletekategori/{id}', [KategoriController::class, 'delete']);
+Route::get('/admin/addkategori', [KategoriController::class, 'create']);
+Route::post('/admin/addkategori', [KategoriController::class, 'store'])->name('kategori.store');
 
-Route::get('/guruternak/addkategori', [KategoriController::class, 'create']);
-Route::post('/guruternak/addkategori', [KategoriController::class, 'store'])->name('kategori.store');
+Route::get('/admin/anggota', [AnggotaController::class, 'index']);
+Route::get('/admin/anggota/{id}', [AnggotaController::class, 'edit']);
+Route::put('/admin/updateanggota/{id}', [AnggotaController::class, 'update'])->name('anggota.update');
+Route::delete('/admin/deleteanggota/{id}', [AnggotaController::class, 'delete']);
+Route::get('/admin/addanggota', [AnggotaController::class, 'create']);
+Route::post('/admin/addanggota', [AnggotaController::class, 'store'])->name('anggota.store');
 
-Route::get('/guruternak/addpenyewaan', [PenyewaanController::class, 'create']);
-Route::post('/guruternak/addpenyewaan', [PenyewaanController::class, 'store'])->name('penyewaan.store');
+Route::get('/admin/addpenyewaan', [PenyewaanController::class, 'create']);
+Route::post('/admin/addpenyewaan', [PenyewaanController::class, 'store'])->name('penyewaan.store');
 
-Route::get('/guruternak/pengembalian', [PengembalianController::class, 'index']);
-Route::post('/guruternak/pengembalian', [PengembalianController::class, 'store'])->name('pengembalian.store');
+Route::get('/admin/pengembalian', [PengembalianController::class, 'index']);
+Route::post('/admin/pengembalian', [PengembalianController::class, 'store'])->name('pengembalian.store');
 
-Route::get('/guruternak/inbox', [AdminController::class, 'index']);
-Route::put('/guruternak/inbox/{order}', [AdminController::class, 'update_status']);
+Route::get('/admin/inbox', [AdminController::class, 'index']);
+Route::put('/admin/inbox/{order}', [AdminController::class, 'update_status']);
 
-Route::get('/guruternak/setting', [AdminController::class, 'setting']);
-Route::put('/guruternak/setting/{user}', [AdminController::class, 'update']);
+Route::get('/admin/setting', [AdminController::class, 'setting']);
+Route::put('/admin/setting/{user}', [AdminController::class, 'update']);
 
-Route::get('/guruternak/myclass', [CourseController::class, 'displayclass']);
-Route::delete('/guruternak/myclass/{id}', [CourseController::class, 'destroy']);
-
-Route::get('/guruternak/editclass/{id}', [CourseController::class, 'editclass']);
-Route::put('/guruternak/editclass/{course}', [CourseController::class, 'update']);
-
-// route for user pelajar
+// route for user
 
 Route::put('/user/{user}', [UserController::class, 'update']);
 
-Route::get('/user/order', [UserController::class, 'myorder']);
+Route::get('/user/rent', [PenyewaanController::class, 'userrent']);
 
 Route::get('/user/class', [UserController::class, 'myclass']);
 
-Route::get('/user/class/{id}', [UserController::class, 'accessVideoTesting']);
+Route::get('/user/addpenyewaan', [PenyewaanController::class, 'userindex']);
+Route::post('/user/addpenyewaan', [PenyewaanController::class, 'userstore'])->name('penyewaan.userstore');
 
 Route::get('/user/setting', [UserController::class, 'setting']);
 Route::get('/user/setting/{user}', [UserController::class, 'update']);
 Route::put('/user/setting/{user}', [UserController::class, 'update']);
 
-
+Route::get('/cetak-laporan', [LaporanController::class, 'cetak']);

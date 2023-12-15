@@ -214,7 +214,7 @@ ribuan artikel, video pembelajaran, tentang Perternakan.</p>
                 <h2 class="community__subtle">Dipercaya Oleh 900K+ Siswa</h2>
                 <h1 class="community__title">Bergabunglah dengan Suporter Kami Komunitas 😊</h1>
                 <p class="community__desc">Sebuah komunitas terbentuk untuk satu sama lain membantu dalam mencapai Peternakan yang baik.</p>
-                <a href="/course" class="community__cta cta">Lihat Semua</a>
+                <a href="/karanganbunga" class="community__cta cta">Lihat Semua</a>
             </div>
             <img src="asset/testimoni 2.png" alt="testimoni" class="community__img">
             <img class="position-absolute end-0 translate-middle-y dikanan" style=" width: 700px" src="../../../asset/Frame 1064.png" alt="">

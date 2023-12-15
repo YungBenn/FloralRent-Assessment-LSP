@@ -6,7 +6,7 @@
     <div class="app">
         @include('partial.navbar')
         <div class="dashboard addclass">
-            @include('partial.sidebar-guru')
+            @include('partial.sidebar-admin')
             <div class="addclass-box dashboard-box">
                 <h1 style="text-decoration: underline;text-decoration-color: #C5D22E;" >Pengembalian Karangan Bunga</h1>
                 <div class="tagBungkus d-flex align-items-center">
@@ -17,7 +17,7 @@
                         <img src="../asset/edit.svg" alt="">
                         Pengembalian Karangan Bunga
                 </div>
-                <form action="/guruternak/pengembalian" class="dashboard-form" method="POST" enctype="multipart/form-data">
+                <form action="/admin/pengembalian" class="dashboard-form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="addclass-subtle dashboard-subtle">
                         <img src="../asset/edit.svg" alt="">

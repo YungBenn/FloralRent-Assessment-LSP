@@ -22,30 +22,25 @@
                     <table class="order-table mx-auto">
                         <thead>
                             <tr>
-                                <td>#ID</td>
-                                <td>Cover</td>
-                                <td>Name</td>
-                                <td>Type</td>
-                                <td>Price</td>
-                                <td>Date</td>
-                                <td>Status</td>
-                                <td>Action</td>
+                                <td>No</td>
+                                <td>Nama Karangan Bunga</td>
+                                <td>Kode Karangan Bunga</td>
+                                <td>Tanggal Sewa</td>
+                                <td>Tanggal Wajib Pengembalian</td>
+                                <td>Tanggal Pengembalian</td>
+                                <td>Denda</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($order as $ord)
+                            @foreach ($penyewaanuser as $item)
                             <tr>
-                                <td>{{$ord->id}}</td>
-                                <td><img src="../asset/thumbnails/{{$ord->cover}}" class="order-cover"
-                                        alt=""></td>
-                                <td class="order-name">{{$ord->title}}</td>
-                                <td>{{$ord->type}}</td>
-                                <td>{{$ord->price}}</td>
-                                <td>{{$ord->created_at}}</td>
-                                <td><span class="bg-warning text-white order-status">{{$ord->status}}</span></td>
-                                <td>                                    
-                                    <a href="/user/class" class="order-action-cta order-action-cta-secondary cta">Detail class</a>
-                                </td>
+                                <td scope="row">{{ $loop->iteration }}</td>
+                                <td>{{ $item->karangan_bunga->nama_karanganbunga }}</td>
+                                <td>{{ $item->karangan_bunga->kode_karanganbunga }}</td>
+                                <td>{{ $item->tanggal_sewa }}</td>
+                                <td>{{ $item->tanggal_wajib_kembali }}</td>
+                                <td>{{ $item->tanggal_pengembalian }}</td>
+                                <td style="{{ $item->denda == '0' ? 'background-color: green; color: white;' : ($item->denda == null ? 'background-color: white; color: white;' : 'color: white;') }}">{{ $item->denda }}</td>
                             </tr>
                             @endforeach
                         </tbody>
