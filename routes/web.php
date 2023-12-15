@@ -65,11 +65,15 @@ Route::get('/event', [EventController::class, 'displayEvent']);
 Route::get('/event-detail/{id}', [EventController::class, 'eventDetail']);
 Route::get('/comunity', [ComunityController::class, 'comun']);
 
-Route::get('/guruternak/login', [AdminController::class, 'loginGuru']);
-Route::post('/guruternak/login', [LoginController::class, 'authenticate']);
+Route::get('/floralrent/login', [AdminController::class, 'loginGuru']);
+Route::post('/floralrent/login', [LoginController::class, 'authenticate']);
 
-Route::get('/guruternak/addclass', [AdminController::class, 'addclass']);
-Route::post('/guruternak/addclass', [CourseController::class, 'store'])->name('course.store');
+Route::get('/floralrent/karanganbunga', [AdminController::class, 'displaykaranganbunga']);
+Route::get('/floralrent/tambahkaranganbunga', [AdminController::class, 'tambahkaranganbunga']);
+Route::post('/floralrent/tambahkaranganbunga', [CourseController::class, 'store'])->name('course.store');
+Route::get('/floralrent/editkaranganbunga/{id}', [AdminController::class, 'editkaranganbunga']);
+Route::put('/floralrent/update-karanganbunga/{id}', [AdminController::class, 'updatekaranganbunga'])->name('admin.updatekaranganbunga');
+
 
 Route::get('/guruternak/addkategori', [KategoriController::class, 'create']);
 Route::post('/guruternak/addkategori', [KategoriController::class, 'store'])->name('kategori.store');

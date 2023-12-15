@@ -35,15 +35,51 @@ class AdminController extends Controller
         ]);
     }
 
-    public function addclass(){
-        $kategori = Kategori::all();
+    public function displaykaranganbunga(){
         $karanganbunga = KaranganBunga::all();
-        return view('admin/guru-addclass', [
+        return view('admin/karanganbunga-tampil', [
             'karanganbunga' => $karanganbunga,
-            'kategori'=>$kategori,
-            'title' => 'Add a New Class'
+            'title' => 'Display Karangan Bunga'
         ]);
     }
+
+
+    public function tambahkaranganbunga(){
+        $kategori = Kategori::all();
+        $karanganbunga = KaranganBunga::all();
+        return view('admin/karanganbunga-tambah', [
+            'karanganbunga' => $karanganbunga,
+            'kategori'=>$kategori,
+            'title' => 'Tambah Karangan Bunga'
+        ]);
+    }
+
+    public function editkaranganbunga($id){
+        $karanganBunga = KaranganBunga::findOrFail($id);
+        $kategori = Kategori::all();
+        return view('admin/karanganbunga-edit', [
+            'karanganBunga' => $karanganBunga,
+            'kategori' => $kategori,
+            'title' => 'Edit Karangan Bunga'
+        ]);
+    }
+
+    public function updatekaranganbunga(Request $request, $id){
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required|exists:kategoris,id',
+            // Add validation rules for other fields if needed
+        ]);
+        $karanganBunga = KaranganBunga::findOrFail($id);
+        $karanganBunga->update([
+            'name' => $request->name,
+            'kategori_id' => $request->category,
+            // Update other fields as needed
+        ]);
+        return redirect("/floralrent/karanganbunga")->with('success', 'Karangan Bunga updated successfully');
+    }
+
+
 
     public function setting(){
         return view('admin/setting-guru', [
