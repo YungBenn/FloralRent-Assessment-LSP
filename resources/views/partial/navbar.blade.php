@@ -15,8 +15,6 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/admin/inbox">My Inbox</a></li>
-                <li><a class="dropdown-item" href="/admin/addclass">Add Class</a></li>
-                <li><a class="dropdown-item" href="/admin/addclass">My Course</a></li>
                 <li><a class="dropdown-item" href="/admin/setting">Edit Profile</a></li>
                 <li>
                     <form action="/logout" method="post">
