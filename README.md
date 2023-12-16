@@ -35,3 +35,4 @@ Ruben: Anggota, Penyewaan
 # ERD FloralRent :
 https://drive.google.com/file/d/1Prk0cLF3BBB1snCRrp8wDvGH6c_Cd5vu/view?usp=sharing
 
+![erd floralrent](https://github.com/YungBenn/FloralRent-Assessment-LSP/assets/44723909/38ee4c62-8050-4ba8-94e6-5a487f50f54c)
